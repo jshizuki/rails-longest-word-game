@@ -12,7 +12,8 @@ class GamesController < ApplicationController
     data = URI.open(url).read
     @test = JSON.parse(data)
 
-    @check_grid = params[:word].chars.all? { |char| params[:letters].include?(char) }
+    # @check_grid = params[:word].chars.all? { |char| params[:letters].include?(char) }
+    @check_grid = params[:word].chars.all? { |letter| params[:word].count(letter) <= params[:letters].count(letter) }
 
     if @check_grid && @test['found']
       @result = "Congratulations! #{params[:word]} is a valid English word!"
